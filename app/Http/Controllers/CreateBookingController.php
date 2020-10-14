@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Booking;
 
-class BookingController extends Controller
+class CreateBookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::orderBy('id','ASC')->get();
-        return view('welcome', compact('bookings'))
-            ->with('i',(request()->input('page',1) - 1) *5);
+        //
     }
 
     /**
@@ -37,19 +34,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $bookings = new Booking();
-        $bookings->pickUpAddress = $request->pickUpAddress;
-        $bookings->Name = $request->Name;
-        $bookings->PhoneNumber = $request->PhoneNumber;
-        $bookings->pickUpDate = $request->pickUpDate;
-        $bookings->pickUpTime = $request->pickUpTime;
-        $bookings->NumberOFLabour = $request->NumberOFLabour;
-        $bookings->DropoffAddress = $request->DropoffAddress;
-        $bookings->VehicleType = $request->VehicleType;
-        $bookings->Price = $request->Price;
-        $bookings->comment = $request->comment;
-        $bookings->save();
-        return response()->json($bookings);
+        //
     }
 
     /**
@@ -94,7 +79,6 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        Booking::where('id',$id)->delete();
-        return redirect()->back()->with('success','record deleted');
+        //
     }
 }

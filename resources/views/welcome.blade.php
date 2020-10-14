@@ -3,16 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Retail Booking</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
           <!-- Scripts -->
-          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+          <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     
 
     <!-- Fonts -->
@@ -116,6 +116,18 @@
             color: blue;
             font-size: 10px;
             }
+            .btn-group-sm>.btn, .btn-sm {
+            padding: .25rem .5rem;
+            font-size: 11px !important;
+            line-height: 1.5;
+            border-radius: .2rem;
+        }
+        .btn-outline-danger {
+            color: #dc3545;
+            background-color: transparent;
+            background-image: none;
+            border-color: transparent !important; 
+        }
         </style>
     </head>
     <body class="antialiased">
@@ -146,25 +158,15 @@
                     <div style="background-color: #389adb;    text-align: center;">
                     <P class="p1 ft2" style="color:white; padding: 12px;">Retail Booking</P>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops! </strong> there where some problems with your input.<br>
-                            <ul>
-                            @foreach ($errors as $error)
-                                <li>{{$error}}</li>
-                            @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form action="booking" method="post">
-                        @csrf
+                <form id="bookingForm">
+                {{ csrf_field() }}
                         <div class="grid grid-cols-1 md:grid-cols-2">
                             <!-- Grid to 3 Culm -->
                             <div class="p-6">
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Pick up Address</label>
                                     <div class="col-sm-7">
-                                        <input type="text" name="pickUpAddress" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="text" name="pickUpAddress" class="form-control form-control-sm" id="pickUpAddress" required>
                                     </div>
                                     <div style="text-align: right;">
                                         <label style="font-size:10px; color: #389adb; font-weight: bold">See Map</label>
@@ -173,29 +175,29 @@
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="Name" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="text" name="Name" class="form-control form-control-sm" id="Name" required >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Phone Number</label>
                                     <div class="col-sm-9">
-                                        <input type="text"  name="PhoneNumber" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="text"  name="PhoneNumber" class="form-control form-control-sm" id="PhoneNumber" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Pick Up Date</label>
                                     <div class="col-sm-3">
-                                        <input type="date" name="pickUpDate" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="date" name="pickUpDate" class="form-control form-control-sm" id="pickUpDate" required>
                                     </div>
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Pick Up Time</label>
                                     <div class="col-sm-3">
-                                        <input type="time" name="pickUpTime" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="time" name="pickUpTime" class="form-control form-control-sm" id="pickUpTime" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Number Of Labour</label>
                                     <div class="col-sm-9">
-                                        <input type="number"  name="NumberOFLabour" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="number"  name="NumberOFLabour" class="form-control form-control-sm" id="NumberOFLabour" required>
                                     </div>
                                 </div>
                                 <!-- Grid to 3 Culm -->
@@ -203,18 +205,20 @@
 
                             <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l"  style="width: 80%; margin: 0 auto;">
                                 <div class="text-center" style="height: 53%;">
-                                    <img src="{{url('/img/cars.png')}}" class="rounded" alt="Cars" style="width: 100%;">
+                                    <img id="image" src="{{url('/img/cars.png')}}" class="rounded" alt="Cars" style="width: 100%;">
                                 </div>
                                 <div class="text-center">
-                                    <label for="colFormLabelSm" class="col-sm-10 col-form-label col-form-label-sm"><b>Cousa Utility, Nissan 1400 or Similar</b></label>
+                                    <input type="hidden"  name="Price" class="form-control form-control-sm" id="Price" >
+                                    <input type="hidden"  name="VehicleType" class="form-control form-control-sm" id="VehicleType" >
+                                    <label id="carname" for="colFormLabelSm" class="col-sm-10 col-form-label col-form-label-sm">Cousa Utility, Nissan 1400 or Similar</label>
                                 </div>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 0px;width: 100%;}">
                                     Select Vehicle
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Toyota</a>
-                                        <a class="dropdown-item" href="#">BMW</a>
+                                        <a class="dropdown-item" onclick="showVan()">Mini Van</a>
+                                        <a class="dropdown-item" onclick="show1Tan()">1 Ton</a>
                                     </div>
                                     </div>
                             </div>
@@ -222,7 +226,7 @@
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Pick up Address</label>
                                     <div class="col-sm-7">
-                                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="text" name="DropoffAddress" class="form-control form-control-sm" id="DropoffAddress" required>
                                     </div>
                                     <div style="text-align: right;">
                                         <label style="font-size:10px; color: #389adb; font-weight: bold">See Map</label>
@@ -231,19 +235,19 @@
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Name</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Phone Number</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm" >
+                                        <input type="number" class="form-control form-control-sm" id="colFormLabelSm" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Comment</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control"  name="comment" aria-label="With textarea" style="text-size: 20px" placeholder="Leave an instruction for the Drive"></textarea>
+                                        <textarea class="form-control"  name="comment" aria-label="With textarea" style="text-size: 20px" id="comment" placeholder="Leave an instruction for the Drive"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -254,8 +258,6 @@
                         </div>
                     </form>
                 </div>
-
-
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div style="background-color: #389adb;    text-align: center;">
                     <P class="p1 ft2" style="color:white; padding: 12px;">Drop Off Address(s)</P>
@@ -263,7 +265,7 @@
                     <div class="grid grid-cols-1">
                         <!-- Grid to 3 Culm -->
                         <div class="p-6">
-                            <table class="table table-borderless">
+                            <table class="table table-borderless" id="bookingtable">
                                 <thead>
                                     <tr>
                                     <th scope="col" style="font-size: 9px !important;"></th>
@@ -277,26 +279,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($bookings as $booking)
                                     <tr>
-                                    <th scope="row" style="font-size: 9px !important;">1</th>
-                                    <td style="font-size: 9px !important;">19-05-20</td>
-                                    <td style="font-size: 9px !important;">Unit 13 Northlands Production Park Intersection of Epsom Avenue</td>
-                                    <td style="font-size: 9px !important;">Unit 13 Northlands Production Park Intersection of Epsom Avenue</td>
-                                    <td style="font-size: 9px !important;">Mini Van</td>
-                                    <td style="font-size: 9px !important;">2</td>
-                                    <td style="font-size: 9px !important;">R250</td>
-                                    <td style="font-size: 9px !important; color: red">Delete</td>
+                                        <th scope="row" style="font-size: 9px !important;">{{$booking->id}}</th>
+                                        <td style="font-size: 9px !important;">{{$booking->pickUpDate}}</td>
+                                        <td style="font-size: 9px !important;">{{$booking->pickUpAddress}}</td>
+                                        <td style="font-size: 9px !important;">{{$booking->DropoffAddress}}</td>
+                                        <td style="font-size: 9px !important;">{{$booking->VehicleType}}</td>
+                                        <td style="font-size: 9px !important;">{{$booking->NumberOFLabour}}</td>
+                                        <td style="font-size: 9px !important;">{{$booking->Price}}</td>
+                                        <td style="font-size: 9px !important; color: red">
+                                        <form class="" action="{{route('DeleteBooking.destroy',$booking->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        </form>
+                                        
+                                        </td>
                                     </tr>
-                                    <tr>
-                                    <th scope="row" style="font-size: 9px !important;">1</th>
-                                    <td style="font-size: 9px !important;">19-05-20</td>
-                                    <td style="font-size: 9px !important;">Unit 13 Northlands Production Park Intersection of Epsom Avenue</td>
-                                    <td style="font-size: 9px !important;">Unit 13 Northlands Production Park Intersection of Epsom Avenue</td>
-                                    <td style="font-size: 9px !important;">Mini Van</td>
-                                    <td style="font-size: 9px !important;">2</td>
-                                    <td style="font-size: 9px !important;">R400</td>
-                                    <td style="font-size: 9px !important; color: red">Delete</td>
-                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -308,5 +309,79 @@
                     <!-- End of Space -->
             </div>
         </div>
+        <script>
+            /* When script load set vehicle type to mini van */
+            $("#VehicleType").val("Mini Van")
+
+            /* Price Random pick for price */
+            var prices = ['R234', 'R550', 'R700', 'R800', 'R400', 'R100'];
+            var priceGenerate = prices[Math.floor(Math.random() * prices.length)];
+            $("#Price").val(priceGenerate)
+
+            /* Change picture to Mini Vam */
+            function showVan(){
+                /* Change image src */
+                $('#image').attr("src","{{url('/img/cars.png')}}").width("100%");
+                /* Change text for car name model */
+                $("#carname").text("Cousa Utility, Nissan 1400 or Similar");
+                $("#VehicleType").val("Mini Van")
+            }
+
+            /* Change picture to 1 tan*/
+            function show1Tan(){
+                /* Change image src */
+                $('#image').attr("src","{{url('/img/Group_1015.png')}}").width("80%");
+                 /* Change text for car name model */
+                $("#carname").text("Isuzu, Amaroc or Similar");
+
+                /* Set vehicle type  */
+                $("#VehicleType").val("1 tan")
+    
+            }
+
+            $('#bookingForm').submit(function(e){
+                e.preventDefault();
+
+                let pickUpAddress = $("#pickUpAddress").val();
+                let Name = $("#Name").val();
+                let PhoneNumber = $("#PhoneNumber").val();
+                let pickUpDate = $("#pickUpDate").val();
+                let pickUpTime = $("#pickUpTime").val();
+                let NumberOFLabour = $("#NumberOFLabour").val();
+                let DropoffAddress = $("#DropoffAddress").val();
+                let VehicleType = $("#VehicleType").val();
+                let comment = $("#comment").val();
+                let Price = $("#Price").val();;
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{route('booking.store')}}",
+                    type: "POST",
+                    data:{
+                        pickUpAddress: pickUpAddress,
+                        Name:Name,
+                        PhoneNumber:PhoneNumber,
+                        pickUpDate:pickUpDate,
+                        pickUpTime:pickUpTime,
+                        NumberOFLabour:NumberOFLabour,
+                        DropoffAddress:DropoffAddress,
+                        VehicleType: VehicleType,
+                        Price:Price,
+                        comment:comment
+                    },
+                    success:function(response){
+                        if(response){
+                           $("#bookingtable tbody").prepend('<tr><td scope="row" style="font-size: 9px !important;">'+response.id+'</td><td style="font-size: 9px !important;">'+response.pickUpDate+'</td><td style="font-size: 9px !important;">'+response.pickUpAddress+'</td><td style="font-size: 9px !important;">'+response.DropoffAddress+'</td><td style="font-size: 9px !important;">'+response.VehicleType+'</td><td style="font-size: 9px !important;">'+response.Price+'</td><td style="font-size: 9px !important; color: red"> <form class="" action="{{route("DeleteBooking.destroy",'+response.id+')}}" method="post"> @csrf @method("DELETE") <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button> </form></td></tr>')
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        var errorMessage = xhr.status + ': ' + xhr.statusText
+                        alert('Error - ' + errorMessage);
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

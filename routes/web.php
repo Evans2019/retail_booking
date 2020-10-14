@@ -21,4 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('booking','BookingController@store');
+Route::get('/', [App\Http\Controllers\BookingController::class, 'index'])->name('home');
+Route::post('/', [App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
+
+Route::resource('DeleteBooking',App\Http\Controllers\BookingController::class);

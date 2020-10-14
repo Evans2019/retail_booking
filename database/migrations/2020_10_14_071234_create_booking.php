@@ -21,6 +21,7 @@ class CreateBooking extends Migration
             $table->string('pickUpDate');
             $table->string('pickUpTime');
             $table->string('NumberOFLabour');
+            $table->string('DropoffAddress');
             $table->string('VehicleType');
             $table->string('Price');
             $table->string('comment');
